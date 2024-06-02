@@ -18,7 +18,7 @@ class _ResultadoState extends State<Resultado> {
     int respostas = ModalRoute.of(context)?.settings.arguments as int;
 
     if(respostas == 2) {
-      classificacao = "Suspeita";
+      classificacao = "Suspeito";
     } else if(respostas >= 3 && respostas <= 4) {
       classificacao = "Cúmplice";
     } else if(respostas >= 5) {
@@ -38,9 +38,14 @@ class _ResultadoState extends State<Resultado> {
             Text(
               classificacao,
               style: TextStyle(
-                fontSize: 24,
-                color: Colors.blue[300]
+                fontWeight: FontWeight.bold,
+                fontStyle: FontStyle.italic,
+                color: const Color.fromARGB(255, 243, 2, 2),
+                fontSize: 32
               ),
+            ),
+            SizedBox(
+              height: 10,
             ),
             ElevatedButton(
               onPressed: () {
