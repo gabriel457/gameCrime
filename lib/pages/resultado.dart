@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:criminal/pages/home.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Resultado extends StatefulWidget {
   const Resultado({super.key});
@@ -9,10 +10,23 @@ class Resultado extends StatefulWidget {
 }
 
 class _ResultadoState extends State<Resultado> {
-  String? classificacao;
+  String classificacao = "Inocente";
 
   @override
   Widget build(BuildContext context) {
+
+    int respostas = ModalRoute.of(context)?.settings.arguments as int;
+
+    if(respostas == 2) {
+      classificacao = "Suspeita";
+    } else if(respostas >= 3 && respostas <= 4) {
+      classificacao = "Cúmplice";
+    } else if(respostas >= 5) {
+      classificacao = "Assassino";
+    } else if(respostas <= 1) {
+      classificacao = "Inocente";
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Resultado'),
@@ -21,12 +35,13 @@ class _ResultadoState extends State<Resultado> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (classificacao != null)
-              Text(
-                'Classificação: $classificacao',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            Text(
+              classificacao,
+              style: TextStyle(
+                fontSize: 24,
+                color: Colors.blue[300]
               ),
-            SizedBox(height: 16),
+            ),
             ElevatedButton(
               onPressed: () {
                 Navigator.pop(context);
